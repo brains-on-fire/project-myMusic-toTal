@@ -47,7 +47,9 @@ RETORNO: 201 Created
 }
 ```
 
+
 Para validação de token utilizar o endpoint a seguir:
+
 
 
 ```
