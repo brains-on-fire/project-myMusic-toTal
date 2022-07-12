@@ -1,7 +1,7 @@
 # My Music 2022
 
 API responsável por gerenciar as musicas favoritas do usuário. Possui como principais funcionalidades:
-
+ok
 ● Permitir o usuário buscar novas músicas:
 1. O serviço deve validar se o usuário informou ao menos 3 caracteres, retornando um HTTP 400
    caso a consulta tenha menos de 3 caracteres.
