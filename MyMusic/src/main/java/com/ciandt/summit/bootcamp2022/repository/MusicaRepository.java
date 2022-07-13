@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface MusicaRepository extends JpaRepository<Musica, String> {
-    @Query(value = "SELECT m FROM Musica m LEFT JOIN Artist a ON a.id = m.artist.id WHERE Upper(a.name) Like Upper(concat('%', :nome,'%')) " +
-            "OR Upper(m.nome) like Upper(concat('%', :nome,'%')) ORDER BY a.name, m.nome")
+    @Query(value = "SELECT m FROM Musica m LEFT JOIN Artista a ON a.id = m.artista.id WHERE Upper(a.nome) Like Upper(concat('%', :nome,'%')) " +
+            "OR Upper(m.nome) like Upper(concat('%', :nome,'%')) ORDER BY a.nome, m.nome")
     List<Musica> findAllByMusicOrArtist(@Param("nome") String nome);
 }

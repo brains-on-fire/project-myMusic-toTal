@@ -15,6 +15,7 @@ import javax.persistence.*;
     private String nome;
 
     private String artistaId;
+
     @ManyToOne
     @JoinColumn(name = "ArtistaId")
     private Artista artista;

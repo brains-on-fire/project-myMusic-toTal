@@ -9,14 +9,12 @@ import java.util.List;
 
 @Service
 public class MusicaService {
-
     @Autowired
     MusicaRepository musicaRepository;
 
     public List<Musica> findByNameArtistOrMusic(String filtro){
       return  musicaRepository.findAllByMusicOrArtist(filtro);
     }
-
     public List<Musica> findAll(){
         return  musicaRepository.findAll();
     }
