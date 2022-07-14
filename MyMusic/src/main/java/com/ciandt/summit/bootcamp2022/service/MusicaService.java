@@ -9,26 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MusicaService {
     @Autowired
     MusicaRepository musicaRepository;
 
-    public ResponseEntity<Object> findByNameArtistOrMusic(String filtro) {
-
-        if (filtro.length() < 3) {
-            return ResponseHandler.generateResponse("Filtro necessita ter mais de 3 caracteres",
-                    HttpStatus.BAD_REQUEST);
-        }
+    public Optional<List<Musica>> findByNameArtistOrMusic(String filtro) {
 
         List<Musica> queryResult = musicaRepository.findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(filtro, filtro);
 
         if (queryResult.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return Optional.empty();
         }
 
-        return ResponseHandler.generateResponse(String.format("%d resultados encontrados", queryResult.size()),
-                HttpStatus.OK, queryResult);
+        return Optional.of(queryResult);
     }
 }
