@@ -22,8 +22,6 @@ public class Musica {
     @Column(name = "Nome")
     private String nome;
 
-    private String artistaId;
-
     @ManyToOne
     @JoinColumn(name = "ArtistaId")
     private Artista artista;
