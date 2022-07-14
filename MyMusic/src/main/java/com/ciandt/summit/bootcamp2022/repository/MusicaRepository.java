@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MusicaRepository extends JpaRepository<Musica, String> {
-    List<Musica> findByNomeContainsOrArtista_NomeContainsAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(String nome, String nome1);
+    List<Musica> findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(String nome, String nome1);
 }
