@@ -1,29 +1,23 @@
 package com.ciandt.summit.bootcamp2022.service;
 
-import com.ciandt.summit.bootcamp2022.entity.Musica;
-import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
-import com.ciandt.summit.bootcamp2022.response.ResponseHandler;
+import com.ciandt.summit.bootcamp2022.entity.MusicaEntity;
+import com.ciandt.summit.bootcamp2022.repository.IMusicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class MusicaService {
+public class MusicaService implements IMusicaService{
+
     @Autowired
-    MusicaRepository musicaRepository;
+    private IMusicRepository musicaRepository;
 
-    public Optional<List<Musica>> findByNameArtistOrMusic(String filtro) {
+    @Override
+    public List<MusicaEntity> findByNameArtistOrMusic(String filtro) {
 
-        List<Musica> queryResult = musicaRepository.findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(filtro, filtro);
+        List<MusicaEntity> queryResult = musicaRepository.buscarMusicas(filtro);
 
-        if (queryResult.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(queryResult);
+        return queryResult;
     }
 }

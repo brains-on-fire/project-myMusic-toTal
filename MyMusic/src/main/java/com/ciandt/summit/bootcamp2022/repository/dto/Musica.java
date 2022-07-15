@@ -1,11 +1,9 @@
-package com.ciandt.summit.bootcamp2022.entity;
+package com.ciandt.summit.bootcamp2022.repository.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
 import java.util.Objects;
 
 @Getter
@@ -13,8 +11,8 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "Artistas")
-public class Artista {
+@Table(name = "Musicas")
+public class Musica {
 
     @Id
     @Column(name = "Id")
@@ -24,17 +22,16 @@ public class Artista {
     @Column(name = "Nome")
     private String nome;
 
-    @OneToMany(mappedBy = "artista")
-    @JsonIgnore
-    @ToString.Exclude
-    List<Musica> musicas;
+    @ManyToOne
+    @JoinColumn(name = "ArtistaId")
+    private Artista artista;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Artista artista = (Artista) o;
-        return id != null && Objects.equals(id, artista.id);
+        Musica musica = (Musica) o;
+        return id != null && Objects.equals(id, musica.id);
     }
 
     @Override
