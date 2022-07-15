@@ -53,7 +53,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
              System.out.println("Invalid");
         }
         return null;
-            //throw new AccessDeniedException("Invalid authetication token");
     }
 
     @Override
