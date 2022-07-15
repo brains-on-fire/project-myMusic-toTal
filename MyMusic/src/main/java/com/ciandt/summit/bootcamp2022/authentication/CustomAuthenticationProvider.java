@@ -49,8 +49,11 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         if (isValid)
             return new PreAuthenticatedAuthenticationToken("AuthenticatedUser", name,
                     Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")));
-        else
-            throw new AccessDeniedException("Invalid authetication token");
+        else{
+             System.out.println("Invalid");
+        }
+        return null;
+            //throw new AccessDeniedException("Invalid authetication token");
     }
 
     @Override
