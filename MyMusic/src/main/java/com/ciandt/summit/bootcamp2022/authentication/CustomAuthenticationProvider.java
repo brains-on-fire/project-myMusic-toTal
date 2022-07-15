@@ -53,7 +53,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
              System.out.println("Invalid");
         }
         return null;
-
     }
 
     @Override
