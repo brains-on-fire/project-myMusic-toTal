@@ -31349,3 +31349,15 @@ org.jasypt.exceptions.EncryptionOperationNotPossibleException: null
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
 	at java.base/java.lang.Thread.run(Thread.java:834)
+2022-07-15 17:05:19,911 INFO org.springframework.boot.StartupInfoLogger [main] Starting TokenProviderApplication using Java 11.0.13 on WNB016912CPS with PID 13180 (C:\projetos\project-myMusic-toTal\TokenProvider\target\classes started by carlossc in C:\projetos\project-myMusic-toTal\TokenProvider)
+2022-07-15 17:05:19,918 INFO org.springframework.boot.SpringApplication [main] No active profile set, falling back to default profiles: default
+2022-07-15 17:05:30,117 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-07-15 17:05:30,141 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-07-15 17:05:30,142 INFO org.apache.juli.logging.DirectJDKLog [main] Starting service [Tomcat]
+2022-07-15 17:05:30,143 INFO org.apache.juli.logging.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.56]
+2022-07-15 17:05:30,363 INFO org.apache.juli.logging.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2022-07-15 17:05:30,365 INFO org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 10268 ms
+2022-07-15 17:05:32,577 INFO org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver [main] Exposing 1 endpoint(s) beneath base path '/actuator'
+2022-07-15 17:05:32,715 INFO org.apache.juli.logging.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-07-15 17:05:32,814 INFO org.springframework.boot.web.embedded.tomcat.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-07-15 17:05:32,874 INFO org.springframework.boot.StartupInfoLogger [main] Started TokenProviderApplication in 14.293 seconds (JVM running for 16.026)
