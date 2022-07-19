@@ -1,5 +1,7 @@
 package com.ciandt.summit.bootcamp2022;
 
+import com.ciandt.summit.bootcamp2022.config.LogConfig;
+import com.ciandt.summit.bootcamp2022.config.LogType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +15,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 
 public class SummitBootcampApplication {
+
+    private static final LogConfig log = new LogConfig(SummitBootcampApplication.class);
     public static void main(String[] args) {
+        log.create(LogType.INFO, "Iniciando a aplicacao MyMusic! Acesse a documentação pela URL: http://localhost:9090/api/swagger-ui.html");
         SpringApplication.run(SummitBootcampApplication.class, args);
     }
 }

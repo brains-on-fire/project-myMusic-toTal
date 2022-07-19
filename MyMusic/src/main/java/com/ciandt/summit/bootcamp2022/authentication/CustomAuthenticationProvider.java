@@ -1,5 +1,7 @@
 package com.ciandt.summit.bootcamp2022.authentication;
 
+import com.ciandt.summit.bootcamp2022.config.LogConfig;
+import com.ciandt.summit.bootcamp2022.config.LogType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
@@ -18,6 +20,8 @@ import java.util.Collections;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
+
+    private static final LogConfig log = new LogConfig(CustomAuthenticationProvider.class);
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -46,12 +50,16 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         boolean isValid = response.statusCode() == 201;
 
-        if (isValid)
+        if (isValid){
+            log.create(LogType.INFO, "Credenciais validadas com sucesso!");
             return new PreAuthenticatedAuthenticationToken("AuthenticatedUser", name,
                     Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")));
-        else{
-             System.out.println("Invalid");
         }
+        else {
+             log.create(LogType.ERROR, "Credenciais invalidas");
+             System.out.println("Credenciais invalidas");
+        }
+
         return null;
     }
 
