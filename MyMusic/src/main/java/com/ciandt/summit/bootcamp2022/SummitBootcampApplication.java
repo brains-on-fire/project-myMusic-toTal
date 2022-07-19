@@ -13,12 +13,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 @EnableWebMvc
 @SpringBootApplication
-
 public class SummitBootcampApplication {
 
     private static final LogConfig log = new LogConfig(SummitBootcampApplication.class);
     public static void main(String[] args) {
-        log.create(LogType.INFO, "Iniciando a aplicacao MyMusic! Acesse a documentação pela URL: http://localhost:9090/api/swagger-ui.html");
+
         SpringApplication.run(SummitBootcampApplication.class, args);
+        log.create(LogType.INFO, "Iniciando a aplicacao MyMusic! \nAcesse a documentação pela URL: http://localhost:9090/api/swagger-ui.html");
     }
 }
