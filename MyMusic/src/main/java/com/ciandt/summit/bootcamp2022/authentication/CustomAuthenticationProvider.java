@@ -57,7 +57,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
         else {
              log.create(LogType.ERROR, "Credenciais invalidas");
-             System.out.println("Credenciais invalidas");
+             System.out.println("Credenciais inválidas");
         }
 
         return null;

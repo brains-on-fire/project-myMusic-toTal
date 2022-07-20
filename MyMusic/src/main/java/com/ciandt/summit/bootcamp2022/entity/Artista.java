@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
 @Setter
 @ToString
 @RequiredArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "Artistas")
 public class Artista {
@@ -27,18 +29,5 @@ public class Artista {
     @OneToMany(mappedBy = "artista")
     @JsonIgnore
     @ToString.Exclude
-    List<Musica> musicas;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        Artista artista = (Artista) o;
-        return id != null && Objects.equals(id, artista.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
+    List<Musica> musicas = new ArrayList<>();
 }
