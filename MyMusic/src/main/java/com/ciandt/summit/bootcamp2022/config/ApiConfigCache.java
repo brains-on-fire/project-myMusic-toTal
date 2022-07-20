@@ -16,7 +16,7 @@ public class ApiConfigCache extends CachingConfigurerSupport {
    @Bean
     public net.sf.ehcache.CacheManager ehCacheManager(){
        CacheConfiguration tenSecondCache = new CacheConfiguration();
-       tenSecondCache.setName("ten-second-cache");
+       tenSecondCache.setName("ten-minutes-cache");
        tenSecondCache.setMemoryStoreEvictionPolicy("LFU");
        tenSecondCache.setMaxEntriesLocalHeap(1000);
        tenSecondCache.setTimeToLiveSeconds(600);
