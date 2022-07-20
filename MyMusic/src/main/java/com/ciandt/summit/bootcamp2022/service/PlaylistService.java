@@ -22,15 +22,13 @@ public class PlaylistService {
             Musica novaMusica = musicaRepository.findById(musica.getId()).orElseThrow(() -> new RuntimeException("Musica não encontrada!"));
             Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new RuntimeException("Playlist não encontrada!"));
 
-            List<Musica> musicaList = new ArrayList<>();
-            musicaList.add(novaMusica);
-
             if(playlist.getId() == playlistId){
                 if(novaMusica.getId() == musica.getId()){
-                    playlist.setMusicas(musicaList);
+                    playlist.addMusica(novaMusica);
                     playlistRepository.save(playlist);
                 }
             }
-            return musica;
+
+            return novaMusica;
         }
     }
