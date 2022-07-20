@@ -18,7 +18,7 @@ public class MusicaService {
     @Autowired
     MusicaRepository musicaRepository;
 
-    @Cacheable(value = "ten-second-cache", key = "'QueryCache'+#filtro")
+    @Cacheable(value = "ten-minutes-cache", key = "'QueryCache'+#filtro")
     public Optional<List<Musica>> findByNameArtistOrMusic(String filtro) {
 
         List<Musica> queryResult = musicaRepository.findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(filtro, filtro);
