@@ -28,4 +28,8 @@ public class Playlist {
     )
     private List<Musica> musicas = new ArrayList<>();
 
+    public void addMusica(Musica musica){
+        this.musicas.add(musica);
+    }
+
 }
