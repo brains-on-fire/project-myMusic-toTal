@@ -13,15 +13,13 @@ import org.springframework.context.annotation.Configuration;
 @EnableCaching
 public class ApiConfigCache extends CachingConfigurerSupport {
 
-
-
    @Bean
     public net.sf.ehcache.CacheManager ehCacheManager(){
        CacheConfiguration tenSecondCache = new CacheConfiguration();
        tenSecondCache.setName("ten-second-cache");
        tenSecondCache.setMemoryStoreEvictionPolicy("LFU");
        tenSecondCache.setMaxEntriesLocalHeap(1000);
-       tenSecondCache.setTimeToLiveSeconds(10);
+       tenSecondCache.setTimeToLiveSeconds(600);
 
      net.sf.ehcache.config.Configuration  config = new net.sf.ehcache.config.Configuration();
      config.addCache(tenSecondCache);
