@@ -20,7 +20,7 @@ public class Playlist {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "PlaylistMusicas",
             joinColumns = {@JoinColumn(name = "PlaylistId")},
