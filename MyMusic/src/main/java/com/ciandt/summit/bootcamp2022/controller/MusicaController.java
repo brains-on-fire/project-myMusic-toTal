@@ -1,7 +1,6 @@
 package com.ciandt.summit.bootcamp2022.controller;
 
-import com.ciandt.summit.bootcamp2022.config.LogConfig;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.response.ResponseHandler;
 import com.ciandt.summit.bootcamp2022.service.MusicaService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -33,12 +31,12 @@ public class MusicaController {
         if (filtro.length() < 3)
             return ResponseHandler.badRequest("Filtro informado inválido (menor que 3 caracteres): " + filtro);
 
-        Optional<List<Musica>> musicas = musicaService.findByNameArtistOrMusic(filtro);
+        Optional<MusicaDTO> musicas = musicaService.findByNameArtistOrMusic(filtro);
 
         if (musicas.isEmpty())
             return ResponseHandler.noContent("Música não encontrada com o filtro: " + filtro);
 
-        return ResponseHandler.ok(musicas.get(), musicas.get().size() + " músicas encontradas com o filtro: " + filtro);
+        return ResponseHandler.ok(musicas.get(), musicas.stream().count() + " músicas encontradas com o filtro: " + filtro);
 
     }
 }

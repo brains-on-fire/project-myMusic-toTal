@@ -1,12 +1,9 @@
 package com.ciandt.summit.bootcamp2022.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Getter
@@ -21,13 +18,28 @@ public class Musica {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private String id;
 
     @Column(name = "Nome")
+    @NotNull
     private String nome;
 
     @ManyToOne
     @JoinColumn(name = "ArtistaId")
+    @NotNull
     private Artista artista;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Musica musica = (Musica) o;
+        return id.equals(musica.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

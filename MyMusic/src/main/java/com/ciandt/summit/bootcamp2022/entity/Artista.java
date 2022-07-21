@@ -2,12 +2,11 @@ package com.ciandt.summit.bootcamp2022.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -21,9 +20,11 @@ public class Artista {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private String id;
 
     @Column(name = "Nome")
+    @NotNull
     private String nome;
 
     @OneToMany(mappedBy = "artista")

@@ -21,14 +21,10 @@ public class Playlist {
     private String id;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "PlaylistMusicas",
-            joinColumns = {@JoinColumn(name = "PlaylistId")},
-            inverseJoinColumns = {@JoinColumn(name = "MusicaId")}
-    )
+    @JoinTable(name = "PlaylistMusicas", joinColumns = {@JoinColumn(name = "PlaylistId")}, inverseJoinColumns = {@JoinColumn(name = "MusicaId")})
     private List<Musica> musicas = new ArrayList<>();
 
-    public void addMusica(Musica musica){
+    public void addMusica(Musica musica) {
         this.musicas.add(musica);
     }
 
