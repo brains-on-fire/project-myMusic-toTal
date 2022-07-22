@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/playlists")
@@ -23,7 +24,7 @@ public class PlaylistController {
     @GetMapping(value = "/findbyid", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "name", required = true, paramType = "header", dataTypeClass = String.class), @ApiImplicitParam(name = "token", value = "token", required = true, paramType = "header", dataTypeClass = String.class)})
     @Transactional
-    public ResponseEntity<Object> findByPlaylistId(@RequestParam(value = "id", required = false) String id) {
+    public ResponseEntity<Object> findMusicasByPlaylistId(@RequestParam(value = "id", required = false) String id) {
         return ResponseHandler.ok(playlistService.findPlaylistMusicasByPlaylistId(id), "Busca de Músicas por ID de Playlist!");
     }
 
@@ -36,6 +37,7 @@ public class PlaylistController {
     @PostMapping("/{playlistId}/musicas")
     @Transactional
     public ResponseEntity<Object> addMusicaToPlaylist(@PathVariable(name = "playlistId") String playlistId, @Valid @RequestBody MusicaDTO musica) {
-        return ResponseHandler.created(playlistService.addMusicaToPlaylist(playlistId, musica), "Coleção de músicas cadastrada com sucesso");
+        Optional<Object> response = Optional.of(playlistService.addMusicaToPlaylist(playlistId, musica));
+        return ResponseHandler.created(response, "Coleção de músicas cadastrada com sucesso");
     }
 }

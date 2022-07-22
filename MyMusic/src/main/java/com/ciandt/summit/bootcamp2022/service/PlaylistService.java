@@ -3,6 +3,7 @@ package com.ciandt.summit.bootcamp2022.service;
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.entity.Musica;
 import com.ciandt.summit.bootcamp2022.entity.Playlist;
+import com.ciandt.summit.bootcamp2022.exceptions.MusicaJaCadastradaNaPlaylistException;
 import com.ciandt.summit.bootcamp2022.exceptions.MusicaNaoEncontradaException;
 import com.ciandt.summit.bootcamp2022.exceptions.PayloadInvalidoException;
 import com.ciandt.summit.bootcamp2022.exceptions.PlaylistNaoEncontrada;
@@ -32,8 +33,11 @@ public class PlaylistService {
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new PlaylistNaoEncontrada());
 
         if ((playlist != null) && (novaMusica != null)) {
+
+            if (playlist.getMusicas().contains(novaMusica))
+                throw new MusicaJaCadastradaNaPlaylistException();
+
             playlist.addMusica(novaMusica);
-            playlistRepository.save(playlist);
             return Optional.of(musicaDTO);
         }
 
@@ -41,7 +45,13 @@ public class PlaylistService {
     }
 
     public Optional<List<Musica>> findPlaylistMusicasByPlaylistId(String id) {
-        return Optional.of(playlistRepository.findById(id).get().getMusicas());
+
+        Optional<Playlist> playlist = playlistRepository.findById(id);
+
+        if (playlist.isEmpty())
+            throw new PlaylistNaoEncontrada();
+
+        return Optional.of(playlist.get().getMusicas());
     }
 
     public Optional<List<Playlist>> findAll() {
