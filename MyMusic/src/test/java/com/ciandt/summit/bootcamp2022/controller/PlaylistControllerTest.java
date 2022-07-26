@@ -26,6 +26,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -60,14 +62,14 @@ public class PlaylistControllerTest {
     @DisplayName("Busca todas as playlists e suas músicas")
     void deveRetornarStatusOkAoListaTodasPlaylists() {
         ResponseEntity<Object> response = playlistControllerDatabase.findAll();
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
     @DisplayName("Busca todas as músicas de uma Playlist existente")
     void deveRetornarOkAoListarMusicasDeUmaPlaylist() {
         ResponseEntity<Object> response = playlistControllerDatabase.findMusicasByPlaylistId("fadad621-3ff5-4c66-94ba-f57cc16df792");
-        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(HttpStatus.OK, response.getStatusCode());
     }
 
     @Test
@@ -101,7 +103,7 @@ public class PlaylistControllerTest {
         when(playlistService.addMusicaToPlaylist("1234", musicaDTO)).thenReturn(Optional.of(musicaDTO));
 
         ResponseEntity<Object> response = playlistController.addMusicaToPlaylist("1234", musicaDTO);
-        Assertions.assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
@@ -112,7 +114,7 @@ public class PlaylistControllerTest {
         MusicaDTO musicaDTO = new MusicaDTO();
         musicaDTO.addMusica(musica.get());
 
-        when(playlistService.addMusicaToPlaylist("fadad621-3ff5-4c66-94ba-f57cc16df792", musicaDTO)).thenThrow(MusicaJaCadastradaNaPlaylistException.class);
+        when(playlistController.addMusicaToPlaylist("fadad621-3ff5-4c66-94ba-f57cc16df792", musicaDTO)).thenThrow(MusicaJaCadastradaNaPlaylistException.class);
 
         Assertions.assertThrows(MusicaJaCadastradaNaPlaylistException.class, () -> playlistController.addMusicaToPlaylist("fadad621-3ff5-4c66-94ba-f57cc16df792", musicaDTO));
     }
@@ -138,5 +140,27 @@ public class PlaylistControllerTest {
 
         Assertions.assertThrows(MusicaNaoEncontradaException.class, () -> musicaDTO.addMusica(musicaAdicionar));
     }
+
+    @Test
+    @DisplayName("Remover com sucesso música da playlist")
+    void deveRemoverMusicaDaPlaylist(){
+        ResponseEntity<Object> respose = playlistController.removeMusicaFromPlaylist("a24dd5fb-fefd-4466-b246-d447b73c7ab9", "7d6efa1b-453d-4f39-86bd-ab166cd5ea9d");
+        assertEquals(HttpStatus.NO_CONTENT, respose.getStatusCode());
+    }
+
+    @Test
+    @DisplayName("Remover música de uma playlist inexistente")
+    void deveRetornarPlaylistNaoEncontrada(){
+        when(playlistController.removeMusicaFromPlaylist("xxsdsffg", "7d6efa1b-453d-4f39-86bd-ab166cd5ea9d")).thenThrow(PlaylistNaoEncontrada.class);
+        Assertions.assertThrows(PlaylistNaoEncontrada.class, () -> playlistController.removeMusicaFromPlaylist("xxsdsffg", "7d6efa1b-453d-4f39-86bd-ab166cd5ea9d"));
+    }
+
+    @Test
+    @DisplayName("Remover música inexistente de uma playlist existente")
+    void deveRetornarMusicaNaoEncontrada(){
+        when(playlistController.removeMusicaFromPlaylist("a24dd5fb-fefd-4466-b246-d447b73c7ab9", "dssdfsddf")).thenThrow(MusicaNaoEncontradaException.class);
+        Assertions.assertThrows(MusicaNaoEncontradaException.class, () -> playlistController.removeMusicaFromPlaylist("a24dd5fb-fefd-4466-b246-d447b73c7ab9", "dssdfsddf"));
+    }
+
 
 }
