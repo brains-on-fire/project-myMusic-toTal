@@ -43,4 +43,12 @@ public class ResponseHandler {
 
         return new ResponseEntity<>(setResponse, HttpStatus.CREATED);
     }
+
+    public static ResponseEntity<Object> deleted(String message) {
+
+        log.create(LogType.INFO, message);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
 }

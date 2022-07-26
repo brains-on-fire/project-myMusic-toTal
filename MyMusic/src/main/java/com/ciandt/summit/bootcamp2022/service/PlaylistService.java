@@ -3,10 +3,7 @@ package com.ciandt.summit.bootcamp2022.service;
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.entity.Musica;
 import com.ciandt.summit.bootcamp2022.entity.Playlist;
-import com.ciandt.summit.bootcamp2022.exceptions.MusicaJaCadastradaNaPlaylistException;
-import com.ciandt.summit.bootcamp2022.exceptions.MusicaNaoEncontradaException;
-import com.ciandt.summit.bootcamp2022.exceptions.PayloadInvalidoException;
-import com.ciandt.summit.bootcamp2022.exceptions.PlaylistNaoEncontrada;
+import com.ciandt.summit.bootcamp2022.exceptions.*;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import com.ciandt.summit.bootcamp2022.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +39,16 @@ public class PlaylistService {
         }
 
         return Optional.empty();
+    }
+
+    public void removeMusicaFromPlaylist(String playlistid, String musicaId){
+        Playlist playlist = playlistRepository.findById(playlistid).orElseThrow(() -> new PlaylistNaoEncontrada());
+        Musica musica = musicaRepository.findById(musicaId).orElseThrow(() -> new MusicaNaoEncontradaException());
+
+        if (!playlist.getMusicas().contains(musica))
+            throw new MusicaNaoCadastradaNaPlaylistException();
+
+        playlist.removeMusica(musica);
     }
 
     public Optional<List<Musica>> findPlaylistMusicasByPlaylistId(String id) {

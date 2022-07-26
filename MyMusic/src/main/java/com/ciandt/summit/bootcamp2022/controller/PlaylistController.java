@@ -40,4 +40,11 @@ public class PlaylistController {
         Optional<Object> response = Optional.of(playlistService.addMusicaToPlaylist(playlistId, musica));
         return ResponseHandler.created(response, "Coleção de músicas cadastrada com sucesso");
     }
+
+    @DeleteMapping("/{playlistId}/musicas/{musicaId}")
+    @Transactional
+    public ResponseEntity<Object> removeMusicaFromPlaylist(@PathVariable(name = "playlistId") String playlistId, @PathVariable(name = "musicaId") String musicaId){
+        playlistService.removeMusicaFromPlaylist(playlistId, musicaId);
+        return ResponseHandler.deleted("Registro deletado com sucesso. PlaylistID: " + playlistId + ", MusicaID: " + musicaId);
+    }
 }

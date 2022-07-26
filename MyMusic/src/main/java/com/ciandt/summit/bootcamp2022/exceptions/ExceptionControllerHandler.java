@@ -29,4 +29,9 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         return ResponseHandler.badRequest("Payload Inválido.");
     }
 
+    @ExceptionHandler(MusicaNaoCadastradaNaPlaylistException.class)
+    public ResponseEntity<Object> handleMusicaNaoCadastradaNaPlaylistException(MusicaNaoCadastradaNaPlaylistException err){
+        return ResponseHandler.badRequest("Música não cadastrada na Playlist");
+    }
+
 }

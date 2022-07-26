@@ -29,17 +29,4 @@ public class Musica {
     @JoinColumn(name = "ArtistaId")
     @NotNull
     private Artista artista;
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Musica musica = (Musica) o;
-        return id.equals(musica.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

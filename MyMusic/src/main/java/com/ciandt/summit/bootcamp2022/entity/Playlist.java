@@ -28,4 +28,8 @@ public class Playlist {
         this.musicas.add(musica);
     }
 
+    public void removeMusica(Musica musica){
+        this.musicas.remove(musica);
+    }
+
 }
