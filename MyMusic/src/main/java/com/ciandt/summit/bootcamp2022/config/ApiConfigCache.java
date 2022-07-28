@@ -15,14 +15,14 @@ public class ApiConfigCache extends CachingConfigurerSupport {
 
    @Bean
     public net.sf.ehcache.CacheManager ehCacheManager(){
-       CacheConfiguration tenSecondCache = new CacheConfiguration();
-       tenSecondCache.setName("ten-minutes-cache");
-       tenSecondCache.setMemoryStoreEvictionPolicy("LFU");
-       tenSecondCache.setMaxEntriesLocalHeap(1000);
-       tenSecondCache.setTimeToLiveSeconds(600);
+       CacheConfiguration tenMinutesCache = new CacheConfiguration();
+       tenMinutesCache.setName("ten-minutes-cache");
+       tenMinutesCache.setMemoryStoreEvictionPolicy("LFU");
+       tenMinutesCache.setMaxEntriesLocalHeap(1000);
+       tenMinutesCache.setTimeToLiveSeconds(600);
 
      net.sf.ehcache.config.Configuration  config = new net.sf.ehcache.config.Configuration();
-     config.addCache(tenSecondCache);
+     config.addCache(tenMinutesCache);
      return  net.sf.ehcache.CacheManager.newInstance(config);
    }
 
