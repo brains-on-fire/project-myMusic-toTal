@@ -23,26 +23,22 @@ public class PlaylistController {
 
     @GetMapping(value = "/findbyid", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "name", required = true, paramType = "header", dataTypeClass = String.class), @ApiImplicitParam(name = "token", value = "token", required = true, paramType = "header", dataTypeClass = String.class)})
-    @Transactional
     public ResponseEntity<Object> findMusicasByPlaylistId(@RequestParam(value = "id", required = false) String id) {
         return ResponseHandler.ok(playlistService.findPlaylistMusicasByPlaylistId(id), "Busca de Músicas por ID de Playlist!");
     }
 
     @GetMapping("/all")
-    @Transactional
     public ResponseEntity<Object> findAll() {
         return ResponseHandler.ok(playlistService.findAll(), "Busca de todas as Músicas de todas as Playlists!");
     }
 
     @PostMapping("/{playlistId}/musicas")
-    @Transactional
     public ResponseEntity<Object> addMusicaToPlaylist(@PathVariable(name = "playlistId") String playlistId, @Valid @RequestBody MusicaDTO musica) {
-        Optional<Object> response = Optional.of(playlistService.addMusicaToPlaylist(playlistId, musica));
+        Optional<MusicaDTO> response = playlistService.addMusicaToPlaylist(playlistId, musica);
         return ResponseHandler.created(response, "Coleção de músicas cadastrada com sucesso");
     }
 
     @DeleteMapping("/{playlistId}/musicas/{musicaId}")
-    @Transactional
     public ResponseEntity<Object> removeMusicaFromPlaylist(@PathVariable(name = "playlistId") String playlistId, @PathVariable(name = "musicaId") String musicaId){
         playlistService.removeMusicaFromPlaylist(playlistId, musicaId);
         return ResponseHandler.deleted("Registro deletado com sucesso. PlaylistID: " + playlistId + ", MusicaID: " + musicaId);

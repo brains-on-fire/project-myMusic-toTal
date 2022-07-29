@@ -13,6 +13,8 @@ import java.util.List;
 @ToString
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "Artistas")
 public class Artista {
@@ -27,8 +29,8 @@ public class Artista {
     @NotNull
     private String nome;
 
-    @OneToMany(mappedBy = "artista")
-    @JsonIgnore
-    @ToString.Exclude
-    List<Musica> musicas = new ArrayList<>();
+//    @OneToMany(mappedBy = "artista")
+//    @JsonIgnore
+//    @ToString.Exclude
+//    List<Musica> musicas = new ArrayList<>();
 }

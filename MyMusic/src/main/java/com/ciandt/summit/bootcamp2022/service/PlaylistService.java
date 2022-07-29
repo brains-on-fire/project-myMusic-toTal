@@ -9,6 +9,7 @@ import com.ciandt.summit.bootcamp2022.repository.PlaylistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,7 +21,7 @@ public class PlaylistService {
     PlaylistRepository playlistRepository;
 
 
-    public Optional<MusicaDTO> addMusicaToPlaylist(String playlistId, MusicaDTO musicaDTO) {
+    public Optional<MusicaDTO> addMusicaToPlaylist(String playlistId, MusicaDTO musicaDTO){
 
         if (!isPayloadValid(musicaDTO))
             throw new PayloadInvalidoException();
@@ -31,11 +32,18 @@ public class PlaylistService {
 
         if ((playlist != null) && (novaMusica != null)) {
 
-            if (playlist.getMusicas().contains(novaMusica))
+            if (playlist.getMusicas() != null && playlist.getMusicas().contains(novaMusica))
                 throw new MusicaJaCadastradaNaPlaylistException();
 
             playlist.addMusica(novaMusica);
-            return Optional.of(musicaDTO);
+            playlistRepository.save(playlist);
+
+            List<Musica> musicaAdicionada = new ArrayList<>();
+            musicaAdicionada.add(novaMusica);
+
+            MusicaDTO musicaDTOAdicionada = new MusicaDTO(musicaAdicionada);
+
+            return Optional.of(musicaDTOAdicionada);
         }
 
         return Optional.empty();
@@ -49,6 +57,7 @@ public class PlaylistService {
             throw new MusicaNaoCadastradaNaPlaylistException();
 
         playlist.removeMusica(musica);
+        playlistRepository.save(playlist);
     }
 
     public Optional<List<Musica>> findPlaylistMusicasByPlaylistId(String id) {
@@ -66,7 +75,7 @@ public class PlaylistService {
     }
 
     private boolean isPayloadValid(MusicaDTO musicaDTO){
-        if (musicaDTO.getData() == null)
+        if (musicaDTO == null || musicaDTO.getData() == null || musicaDTO.getData().size() == 0)
             return false;
 
         Musica musicaCompare = musicaDTO.getData().get(0);

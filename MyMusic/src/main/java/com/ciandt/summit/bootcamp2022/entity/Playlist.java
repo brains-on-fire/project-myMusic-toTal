@@ -11,6 +11,8 @@ import java.util.List;
 @ToString
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "Playlists")
 public class Playlist {
@@ -25,7 +27,8 @@ public class Playlist {
     private List<Musica> musicas = new ArrayList<>();
 
     public void addMusica(Musica musica) {
-        this.musicas.add(musica);
+        if (musica != null)
+            this.musicas.add(musica);
     }
 
     public void removeMusica(Musica musica){

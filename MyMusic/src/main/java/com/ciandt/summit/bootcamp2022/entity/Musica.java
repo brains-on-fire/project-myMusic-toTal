@@ -11,6 +11,8 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @EqualsAndHashCode
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "Musicas")
 public class Musica {

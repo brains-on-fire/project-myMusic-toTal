@@ -1,60 +1,89 @@
 package com.ciandt.summit.bootcamp2022.controller;
-import org.junit.jupiter.api.*;
+
+import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
+import com.ciandt.summit.bootcamp2022.entity.Artista;
+import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.service.MusicaService;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
+@ActiveProfiles("test")
+@WebAppConfiguration
+@AutoConfigureMockMvc(addFilters = false)
 public class MusicaControllerTest {
+    @MockBean
+    private MusicaService musicaService;
 
     @Autowired
-    MusicaController musicaController;
+    private MockMvc mockMvc;
 
     @Test
-    @Order(1)
-    @DisplayName("Busca musica > 3 caracteres")
-    public void deveRetornarMusicas(){
-        ResponseEntity<Object> result = musicaController.getByNameOrArtist("The");
-        assertEquals(HttpStatus.OK, result.getStatusCode());
+    @DisplayName("Busca >= 3 caracteres deve retornar OK")
+    public void deveRetornarOkAoPesquisarComMaisDeDoisCaracteres() throws Exception {
+        List<Musica> musicas = new ArrayList<>();
+        musicas.add(new Musica("123", "Musica Teste", new Artista("1", "Artista Teste")));
+        MusicaDTO musicaDTO = new MusicaDTO(musicas);
+
+        Mockito.when(musicaService.findByNameArtistOrMusic("Teste")).thenReturn(Optional.of(musicaDTO));
+
+        this.mockMvc.perform(get("/musicas?filtro=Teste"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
-    @Order(1)
-    @DisplayName("Busca musica com parametro vazio")
-    public void deveRetornarBadRequest(){
-        ResponseEntity<Object> result = musicaController.getByNameOrArtist("");
-        assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
+    @DisplayName("Busca < 3 caracteres deve retornar BAD REQUEST")
+    public void deveRetornarBadRequestAoPesquisarComMenosDeTresCaracteres() throws Exception {
+        this.mockMvc.perform(get("/musicas?filtro=Te"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
-    @Order(2)
-    @DisplayName("Busca musica < 3 caracteres")
-    public void deveRetornarErroNaRequisicao(){
-        ResponseEntity<Object> result = musicaController.getByNameOrArtist("th");
-        assertEquals(HttpStatus.BAD_REQUEST, result.getStatusCode());
+    @DisplayName("Busca sem parâmetro deve retornar BAD REQUEST")
+    public void deveRetornarBadRequestAoPesquisarSemParametro() throws Exception {
+
+        this.mockMvc.perform(get("/musicas"))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
     @Test
-    @Order(3)
-    @DisplayName("Busca que retorna vazio")
-    public void deveRetornarVazio(){
-        ResponseEntity<Object> result = musicaController.getByNameOrArtist("tasdad");
-        assertEquals(HttpStatus.NO_CONTENT, result.getStatusCode());
+    @DisplayName("Busca sem resultados deve retornar NO CONTENT")
+    public void deveRetornarNoContentAoRetornarResultadoDaPesquisaVazio() throws Exception {
+
+        this.mockMvc.perform(get("/musicas?filtro=TesteTesteTeste"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+
     }
 
     @Test
-    @Order(4)
-    @DisplayName("Busca INSENSITIVE LETTER")
-    public void deveRetornarResultadoNormal(){
-        ResponseEntity<Object> result = musicaController.getByNameOrArtist("THE");
-        assertEquals(HttpStatus.OK, result.getStatusCode());
-    }
+    @DisplayName("Busca >= 3 caracteres INSENSITIVOS deve retornar NO CONTENT")
+    public void deveRetornarNoContentAoPesquisarComMaisDeDoisCaracteresInsensitivos() throws Exception {
+        List<Musica> musicas = new ArrayList<>();
+        musicas.add(new Musica("123", "Musica Teste", new Artista("1", "Artista Teste")));
+        MusicaDTO musicaDTO = new MusicaDTO(musicas);
 
+        Mockito.when(musicaService.findByNameArtistOrMusic("Teste")).thenReturn(Optional.of(musicaDTO));
+
+        this.mockMvc.perform(get("/musicas?filtro=TESTE"))
+                .andExpect(MockMvcResultMatchers.status().isNoContent());
+    }
 }
