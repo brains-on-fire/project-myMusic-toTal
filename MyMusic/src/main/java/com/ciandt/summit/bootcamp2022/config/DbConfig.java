@@ -1,19 +1,15 @@
 package com.ciandt.summit.bootcamp2022.config;
 
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 
 @Configuration
@@ -29,6 +25,7 @@ public class DbConfig {
         dataSource.setUrl("jdbc:sqlite:MyMusic.db");
         dataSource.setUsername(env.getProperty(""));
         dataSource.setPassword(env.getProperty(""));
+
         return dataSource;
     }
 
@@ -36,7 +33,7 @@ public class DbConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan(new String[]{"com.ciandt.summit.bootcamp2022.entity"});
+        em.setPackagesToScan("com.ciandt.summit.bootcamp2022.entity");
         em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
         em.setJpaProperties(additionalProperties());
         return em;
@@ -44,6 +41,7 @@ public class DbConfig {
 
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
+
         if (env.getProperty("hibernate.hbm2ddl.auto") != null) {
             hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         }

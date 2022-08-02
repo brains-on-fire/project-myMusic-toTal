@@ -1,0 +1,495 @@
+{
+	"info": {
+		"_postman_id": "bf553b5c-1d9d-4e1f-8889-9255a4e44d87",
+		"name": "MyMusic - Sprint 3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21571918"
+	},
+	"item": [
+		{
+			"name": "MyMusic - Autenticacao",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"data\": {\n        \"name\": \"Gustavo\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/token",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Autenticacao",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \n    \"data\": {\n        \"name\": \"teste\",\n        \"token\": \"2ObHGF9HOfp6PiNcJWjbt1yEZNKAzrTheC0muHdM+Z3hZVCSXw1piSn/QIJR9PoS\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MyMusic - Endpoints",
+			"item": [
+				{
+					"name": "FIND_PLAYLIST_BY_ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/findbyid?id=654bbc71-3a9c-4434-a95d-4208f713e586",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"findbyid"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "654bbc71-3a9c-4434-a95d-4208f713e586"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND_ALL_PLAYLISTS",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/all",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND_PLAYLIST_NULL",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/findbyid?id=a39926f4-6acb-4497-884f-d4e5296ef652",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"findbyid"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "a39926f4-6acb-4497-884f-d4e5296ef652"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND_PLAYLIST_NOTFOUND",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/findbyid/?id=a39926f4-6acb-4497-884f-d4e5296ef652dsadasd",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"findbyid",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "a39926f4-6acb-4497-884f-d4e5296ef652dsadasd"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD_MUSIC_IN_PLAYLIST",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": [\n        {\n            \"id\": \"2f4d5c20-1678-495b-a056-8420ebe88162\",\n            \"nome\": \"A Single Day (Instrumental)\",\n            \"artista\": {\n                \"id\": \"231a4996-7fa3-4eaa-b07f-c93d85261d6a\",\n                \"nome\": \"Nirvana\"\n            }\n        }\n    ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/654bbc71-3a9c-4434-a95d-4208f713e586/musicas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"654bbc71-3a9c-4434-a95d-4208f713e586",
+								"musicas"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ADD_MUSIC_EXISTENT",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"data\": [\n        {\n            \"id\": \"2f4d5c20-1678-495b-a056-8420ebe88162\",\n            \"nome\": \"A Single Day (Instrumental)\",\n            \"artista\": {\n                \"id\": \"231a4996-7fa3-4eaa-b07f-c93d85261d6a\",\n                \"nome\": \"Nirvana\"\n            }\n        }\n    ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/654bbc71-3a9c-4434-a95d-4208f713e586/musicas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"654bbc71-3a9c-4434-a95d-4208f713e586",
+								"musicas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_MUSIC_EXISTING_IN_PLAYLIST",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/654bbc71-3a9c-4434-a95d-4208f713e586/musicas/2f4d5c20-1678-495b-a056-8420ebe88162",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"654bbc71-3a9c-4434-a95d-4208f713e586",
+								"musicas",
+								"2f4d5c20-1678-495b-a056-8420ebe88162"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_MUSIC_DOESNT_EXISTS_IN_PLAYLIST",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/654bbc71-3a9c-4434-a95d-4208f713e586/musicas/2f4d5c20-1678-495b-a056-8420ebe88162",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"654bbc71-3a9c-4434-a95d-4208f713e586",
+								"musicas",
+								"2f4d5c20-1678-495b-a056-8420ebe88162"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_INVALID_MUSIC",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/a24dd5fb-fefd-4466-b246-d447b73c7ab9/musicas/blablabla",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"a24dd5fb-fefd-4466-b246-d447b73c7ab9",
+								"musicas",
+								"blablabla"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE_MUSIC_WITH_INVALID_PLAYLIST",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "name",
+								"value": "Gustavo",
+								"type": "default"
+							},
+							{
+								"key": "token",
+								"value": "{{token}}",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/playlists/blablabla/musicas/2f4d5c20-1678-495b-a056-8420ebe88162",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"playlists",
+								"blablabla",
+								"musicas",
+								"2f4d5c20-1678-495b-a056-8420ebe88162"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.sendRequest({",
+							"    url:  \"http://localhost:8080/api/v1/token\",",
+							"    method: \"POST\",",
+							"    header: {",
+							"        \"Content-Type\": \"application/json\"      ",
+							"    },",
+							"    body: JSON.stringify({",
+							"        data: {",
+							"            name: \"Gustavo\"",
+							"        }",
+							"    }) ",
+							"}, function (err, res) {",
+							"    var arr = new Uint8Array(res.stream);",
+							"    var token = String.fromCharCode.apply(String, arr);   ",
+							"    pm.environment.set(\"token\", token);",
+							"});"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		}
+	]
+}
