@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,9 +19,9 @@ public class TipoUsuario {
 
     @Id
     @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    private String id;
+    private String id = UUID.randomUUID().toString();
 
     @Column(name = "Descricao")
     @NotNull

@@ -25,6 +25,7 @@ public class DbConfig {
         dataSource.setUrl("jdbc:sqlite:MyMusic.db");
         dataSource.setUsername(env.getProperty(""));
         dataSource.setPassword(env.getProperty(""));
+
         return dataSource;
     }
 
@@ -40,6 +41,7 @@ public class DbConfig {
 
     final Properties additionalProperties() {
         final Properties hibernateProperties = new Properties();
+
         if (env.getProperty("hibernate.hbm2ddl.auto") != null) {
             hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         }
