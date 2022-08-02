@@ -20,11 +20,9 @@ public class TipoUsuario {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @NotNull
     private String id = UUID.randomUUID().toString();
 
     @Column(name = "Descricao")
-    @NotNull
     private String descricao;
 
 }
