@@ -34,4 +34,9 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         return ResponseHandler.badRequest("Música não cadastrada na Playlist");
     }
 
+    @ExceptionHandler(UsuarioNaoEncontrado.class)
+    public ResponseEntity<Object> handleUsuarioNaoEncontradoException(UsuarioNaoEncontrado err){
+        return ResponseHandler.badRequest("Usuario não encontrado");
+    }
+
 }
