@@ -4,6 +4,7 @@ import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.entity.TipoUsuario;
 import com.ciandt.summit.bootcamp2022.repository.TipoUsuarioRepository;
 import com.ciandt.summit.bootcamp2022.response.ResponseHandler;
+import com.ciandt.summit.bootcamp2022.service.TipoUsuarioService;
 import com.ciandt.summit.bootcamp2022.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +18,9 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/usertype")
 public class TipoUsuarioController {
-/*
+
+    @Autowired
+    TipoUsuarioService tipoUsuarioService;
     @Autowired
     private TipoUsuarioRepository tipoUsuarioRepository;
 
@@ -26,17 +29,9 @@ public class TipoUsuarioController {
 
     @GetMapping("/all")
     public ResponseEntity<Object> findAll() {
-        return ResponseHandler.ok(tipoUsuarioRepository.findAll(), "Busca todos os tipos de usuários");
+        return ResponseEntity.ok(tipoUsuarioService.findAll());
 
     }
-
-    @PostMapping("/add")
-    public ResponseEntity<TipoUsuario> addTipoDeUsuario(@RequestBody TipoUsuario tipoUsuario) {
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(tipoUsuarioRepository.save(tipoUsuario));
-
-    }*/
-
 }
 
 

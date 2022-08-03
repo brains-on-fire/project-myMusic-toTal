@@ -7,6 +7,7 @@ import com.ciandt.summit.bootcamp2022.service.UsuarioService;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -33,4 +34,10 @@ public class UsuarioController {
     public ResponseEntity<Object> findUsersById(@PathVariable(name = "userId") String userId) {
         return ResponseHandler.ok(usuarioService.findUsersById(userId), "Buscar Usuário por ID");
     }
+    @PutMapping
+    public ResponseEntity<Usuario> migrateUserPlan(@RequestBody Usuario usuario) {
+        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuario));
+
+  }
+
 }

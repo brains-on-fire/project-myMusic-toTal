@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -30,8 +31,11 @@ public class Usuario {
     @JoinColumn(name = "PlaylistId")
     private Playlist playlistId;
 
-    //CRIAR TABELA NO BANCO PARA RELACIONAR
-/*    @ManyToMany
+ //CRIAR TABELA NO BANCO PARA RELACIONAR
+    @ManyToOne
     @JoinColumn(name = "TipoUsuario")
-    private TipoUsuario tipoUsuarioId;*/
+    private TipoUsuario tipoUsuarioId;
+
+    public Usuario(Optional<Usuario> usuarioId) {
+    }
 }
