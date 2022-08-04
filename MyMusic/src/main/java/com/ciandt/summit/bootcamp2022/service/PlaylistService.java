@@ -35,7 +35,7 @@ public class PlaylistService {
 
         Musica novaMusica = musicaRepository.findById(musicaDTO.getData().get(0).getId()).orElseThrow(() -> new MusicaNaoEncontradaException());
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new PlaylistNaoEncontrada());
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new PlaylistNaoEncontrada());
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontrado());
 
 
         Integer countMusicas = playlist.countMusica(playlist);
