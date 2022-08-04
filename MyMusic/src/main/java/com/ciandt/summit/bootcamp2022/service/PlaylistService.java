@@ -3,6 +3,7 @@ package com.ciandt.summit.bootcamp2022.service;
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.entity.Musica;
 import com.ciandt.summit.bootcamp2022.entity.Playlist;
+import com.ciandt.summit.bootcamp2022.entity.TipoUsuario;
 import com.ciandt.summit.bootcamp2022.entity.Usuario;
 import com.ciandt.summit.bootcamp2022.exceptions.*;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
@@ -34,31 +35,17 @@ public class PlaylistService {
 
         Musica novaMusica = musicaRepository.findById(musicaDTO.getData().get(0).getId()).orElseThrow(() -> new MusicaNaoEncontradaException());
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new PlaylistNaoEncontrada());
-        Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new PlaylistNaoEncontrada());
 
 
-        Integer countMusicas = playlist.countMusica(playlist);   //Essa variável contem a quant. de músicas
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Integer countMusicas = playlist.countMusica(playlist);
 
         if ((playlist != null) && (novaMusica != null) && (usuario != null)){
 
             if (playlist.getMusicas() != null && playlist.getMusicas().contains(novaMusica))
                 throw new MusicaJaCadastradaNaPlaylistException();
 
-            if (usuario.get().getTipoUsuarioId().equals("1") && countMusicas > 5)
+            if (usuario.getTipoUsuarioId().getId().equals("1") && countMusicas > 5)
                 throw new QuantMusicaExcedidaException();
 
 

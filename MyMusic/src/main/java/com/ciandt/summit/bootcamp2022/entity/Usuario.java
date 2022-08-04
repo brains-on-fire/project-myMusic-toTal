@@ -36,6 +36,4 @@ public class Usuario {
     @JoinColumn(name = "TipoUsuario")
     private TipoUsuario tipoUsuarioId;
 
-    public Usuario(Optional<Usuario> usuarioId) {
-    }
 }
