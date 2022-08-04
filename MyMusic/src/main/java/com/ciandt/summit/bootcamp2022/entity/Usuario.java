@@ -26,12 +26,10 @@ public class Usuario {
     @NotNull
     private String nome;
 
-    // ManyToOne or OneToOne > ManyToMany
     @ManyToOne
     @JoinColumn(name = "PlaylistId")
     private Playlist playlistId;
 
- //CRIAR TABELA NO BANCO PARA RELACIONAR
     @ManyToOne
     @JoinColumn(name = "TipoUsuario")
     private TipoUsuario tipoUsuarioId;

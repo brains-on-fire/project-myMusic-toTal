@@ -34,10 +34,5 @@ public class UsuarioController {
     public ResponseEntity<Object> findUsersById(@PathVariable(name = "userId") String userId) {
         return ResponseHandler.ok(usuarioService.findUsersById(userId), "Buscar Usuário por ID");
     }
-    @PutMapping
-    public ResponseEntity<Usuario> migrateUserPlan(@RequestBody Usuario usuario) {
-        return ResponseEntity.status(HttpStatus.OK).body(usuarioRepository.save(usuario));
-
-  }
 
 }

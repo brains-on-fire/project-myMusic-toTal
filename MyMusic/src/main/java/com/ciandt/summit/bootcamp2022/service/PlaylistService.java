@@ -19,12 +19,12 @@ import java.util.Optional;
 @Service
 public class PlaylistService {
     @Autowired
-    MusicaRepository musicaRepository;
+    private MusicaRepository musicaRepository;
     @Autowired
-    PlaylistRepository playlistRepository;
+    private PlaylistRepository playlistRepository;
 
     @Autowired
-    UsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
 
     public Optional<MusicaDTO> addMusicaToPlaylist(String usuarioId, String playlistId, MusicaDTO musicaDTO){
@@ -32,11 +32,9 @@ public class PlaylistService {
         if (!isPayloadValid(musicaDTO))
             throw new PayloadInvalidoException();
 
-
         Musica novaMusica = musicaRepository.findById(musicaDTO.getData().get(0).getId()).orElseThrow(() -> new MusicaNaoEncontradaException());
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new PlaylistNaoEncontrada());
         Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontrado());
-
 
         Integer countMusicas = playlist.countMusica(playlist);
 
@@ -45,7 +43,7 @@ public class PlaylistService {
             if (playlist.getMusicas() != null && playlist.getMusicas().contains(novaMusica))
                 throw new MusicaJaCadastradaNaPlaylistException();
 
-            if (usuario.getTipoUsuarioId().getId().equals("1") && countMusicas > 5)
+            if (usuario.getTipoUsuarioId().getDescricao().equals("comum")  && countMusicas > 5)
                 throw new QuantMusicaExcedidaException();
 
 
