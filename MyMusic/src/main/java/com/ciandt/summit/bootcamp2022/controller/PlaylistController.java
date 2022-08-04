@@ -32,9 +32,12 @@ public class PlaylistController {
         return ResponseHandler.ok(playlistService.findAll(), "Busca de todas as Músicas de todas as Playlists!");
     }
 
-    @PostMapping("/{playlistId}/musicas")
-    public ResponseEntity<Object> addMusicaToPlaylist(@PathVariable(name = "playlistId") String playlistId, @Valid @RequestBody MusicaDTO musica) {
-        Optional<MusicaDTO> response = playlistService.addMusicaToPlaylist(playlistId, musica);
+    @PostMapping("/{userId}/{playlistId}/musicas")
+    public ResponseEntity<Object> addMusicaToPlaylist(
+            @PathVariable(name = "userId") String userId,
+            @PathVariable(name = "playlistId") String playlistId,
+            @Valid @RequestBody MusicaDTO musica) {
+        Optional<MusicaDTO> response = playlistService.addMusicaToPlaylist(userId, playlistId, musica);
         return ResponseHandler.created(response, "Coleção de músicas cadastrada com sucesso");
     }
 

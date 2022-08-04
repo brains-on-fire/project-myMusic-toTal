@@ -1,6 +1,7 @@
 package com.ciandt.summit.bootcamp2022.controller;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
+import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import com.ciandt.summit.bootcamp2022.response.ResponseHandler;
 import com.ciandt.summit.bootcamp2022.service.MusicaService;
 import io.swagger.annotations.ApiImplicitParam;
@@ -21,6 +22,9 @@ public class MusicaController {
     @Autowired
     MusicaService musicaService;
 
+    @Autowired
+    MusicaRepository musicaRepository;
+
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiImplicitParams({@ApiImplicitParam(name = "name", value = "name", required = true, paramType = "header", dataTypeClass = String.class), @ApiImplicitParam(name = "token", value = "token", required = true, paramType = "header", dataTypeClass = String.class)})
     public ResponseEntity<Object> getByNameOrArtist(@RequestParam(value = "filtro", required = false) String filtro) {
@@ -38,6 +42,11 @@ public class MusicaController {
 
         return ResponseHandler.ok(musicas.get(), musicas.stream().count() + " músicas encontradas com o filtro: " + filtro);
 
+
+
+
     }
+
+
 }
 

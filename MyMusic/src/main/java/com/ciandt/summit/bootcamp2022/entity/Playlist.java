@@ -35,4 +35,8 @@ public class Playlist {
         this.musicas.remove(musica);
     }
 
+    public Integer countMusica(Playlist playlist){
+        return Math.toIntExact(playlist.musicas.stream().count());
+    }
+
 }

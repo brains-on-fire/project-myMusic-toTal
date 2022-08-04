@@ -3,9 +3,11 @@ package com.ciandt.summit.bootcamp2022.service;
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.entity.Musica;
 import com.ciandt.summit.bootcamp2022.entity.Playlist;
+import com.ciandt.summit.bootcamp2022.entity.Usuario;
 import com.ciandt.summit.bootcamp2022.exceptions.*;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import com.ciandt.summit.bootcamp2022.repository.PlaylistRepository;
+import com.ciandt.summit.bootcamp2022.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +22,11 @@ public class PlaylistService {
     @Autowired
     PlaylistRepository playlistRepository;
 
+    @Autowired
+    UsuarioRepository usuarioRepository;
 
-    public Optional<MusicaDTO> addMusicaToPlaylist(String playlistId, MusicaDTO musicaDTO){
+
+    public Optional<MusicaDTO> addMusicaToPlaylist(String usuarioId, String playlistId, MusicaDTO musicaDTO){
 
         if (!isPayloadValid(musicaDTO))
             throw new PayloadInvalidoException();
@@ -29,14 +34,37 @@ public class PlaylistService {
 
         Musica novaMusica = musicaRepository.findById(musicaDTO.getData().get(0).getId()).orElseThrow(() -> new MusicaNaoEncontradaException());
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new PlaylistNaoEncontrada());
+        Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
 
-        if ((playlist != null) && (novaMusica != null)) {
+
+        Integer countMusicas = playlist.countMusica(playlist);   //Essa variável contem a quant. de músicas
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        if ((playlist != null) && (novaMusica != null) && (usuario != null)){
 
             if (playlist.getMusicas() != null && playlist.getMusicas().contains(novaMusica))
                 throw new MusicaJaCadastradaNaPlaylistException();
 
+            if (usuario.get().getTipoUsuarioId().equals("1") && countMusicas > 5)
+                throw new QuantMusicaExcedidaException();
+
+
             playlist.addMusica(novaMusica);
             playlistRepository.save(playlist);
+
 
             List<Musica> musicaAdicionada = new ArrayList<>();
             musicaAdicionada.add(novaMusica);

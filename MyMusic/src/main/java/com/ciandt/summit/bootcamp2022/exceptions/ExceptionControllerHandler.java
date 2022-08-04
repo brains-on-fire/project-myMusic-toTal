@@ -39,4 +39,9 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
         return ResponseHandler.badRequest("Usuario não encontrado");
     }
 
+    @ExceptionHandler(QuantMusicaExcedidaException.class)
+    public ResponseEntity<Object> handleUsuarioNaoEncontradoException(QuantMusicaExcedidaException err){
+        return ResponseHandler.badRequest("Você atingiu o número máximo de músicas em sua playlist.Para adicionar mais músicas contrate o plano Premium.");
+    }
+
 }
