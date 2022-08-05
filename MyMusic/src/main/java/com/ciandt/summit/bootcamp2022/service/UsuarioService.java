@@ -36,21 +36,5 @@ public class UsuarioService {
 
         return usuario;
     }
-
-        public Optional<Usuario> migratePlanUser(String usuarioId, UsuarioDTO usuarioDTO) {
-
-            Optional<TipoUsuario> tipoUsuarioPremium = tipoUsuarioRepository.findById("2");
-            Optional<TipoUsuario> tipoUsuarioComum = tipoUsuarioRepository.findById("1");
-
-            Optional<Usuario> usuarioEncontrado = usuarioRepository.findById(usuarioId);
-
-            String usuarioEdit = String.valueOf(usuarioRepository.findById(usuarioId));
-
-/*            usuarioEncontrado.get().setTipoUsuarioId(tipoUsuarioComum);*/
-
-/*            UsuarioDTO usuarioDtoModificado = new UsuarioDTO(musicaAdicionada);*/
-
-            return usuarioEncontrado;
-
-        }
+    
 }
