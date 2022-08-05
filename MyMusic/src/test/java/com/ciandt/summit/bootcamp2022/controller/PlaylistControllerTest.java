@@ -1,8 +1,7 @@
 package com.ciandt.summit.bootcamp2022.controller;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Artista;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.*;
 import com.ciandt.summit.bootcamp2022.exceptions.PayloadInvalidoException;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import com.ciandt.summit.bootcamp2022.repository.PlaylistRepository;
@@ -62,13 +61,14 @@ public class PlaylistControllerTest {
         MusicaDTO musicaDTOAdicionar = new MusicaDTO(listaMusicaAdicionar);
 
         String json = new ObjectMapper().writeValueAsString(musicaDTOAdicionar);
+        Playlist playlist = Playlist.builder().id("1").musicas(listaMusicaAdicionar).build();
 
         MusicaDTO musicaDTOAdicionada = MusicaDTO.builder().data(musicaDTOAdicionar.getData()).build();
 
-        when(playlistService.addMusicaToPlaylist("1", musicaDTOAdicionar)).thenReturn(Optional.of(musicaDTOAdicionada));
+        when(playlistService.addMusicaToPlaylist("1", "1", musicaDTOAdicionar)).thenReturn(Optional.of(musicaDTOAdicionada));
 
         this.mockMvc.perform(
-                        post("/playlists/1/musicas")
+                        post("/playlists/1/1/musicas")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .content(json))
@@ -95,10 +95,10 @@ public class PlaylistControllerTest {
 
         String json = new ObjectMapper().writeValueAsString(musicaDTO);
 
-        when(playlistService.addMusicaToPlaylist("1", musicaDTO)).thenThrow(new PayloadInvalidoException());
+        when(playlistService.addMusicaToPlaylist("1", "1", musicaDTO)).thenThrow(new PayloadInvalidoException());
 
         this.mockMvc.perform(
-                        post("/playlists/1/musicas")
+                        post("/playlists/1/1/musicas")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)
                                 .content(json))

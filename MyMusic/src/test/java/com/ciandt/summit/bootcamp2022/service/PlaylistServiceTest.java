@@ -156,8 +156,11 @@ public class PlaylistServiceTest {
         listaMusica.add(musica);
 
         MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+
         Playlist playlist = Playlist.builder().id("1").musicas(listaMusica).build();
+
         TipoUsuario tipoUsuarioPremium = TipoUsuario.builder().id("2").descricao("premium").build();
+
         Usuario usuario = new Usuario();
         usuario.setTipoUsuarioId(tipoUsuarioPremium);
         usuario.setPlaylistId(playlist);
