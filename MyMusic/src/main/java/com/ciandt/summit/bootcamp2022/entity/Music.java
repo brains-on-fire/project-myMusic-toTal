@@ -1,12 +1,9 @@
 package com.ciandt.summit.bootcamp2022.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter
@@ -16,8 +13,8 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "Artistas")
-public class Artista {
+@Table(name = "Musicas")
+public class Music {
 
     @Id
     @Column(name = "Id")
@@ -29,8 +26,8 @@ public class Artista {
     @NotNull
     private String nome;
 
-//    @OneToMany(mappedBy = "artista")
-//    @JsonIgnore
-//    @ToString.Exclude
-//    List<Musica> musicas = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "ArtistaId")
+    @NotNull
+    private Artist artist;
 }

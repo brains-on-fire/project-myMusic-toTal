@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.Objects;
 
 @Getter
 @Setter
@@ -14,13 +13,12 @@ import java.util.Objects;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "Musicas")
-public class Musica {
+@Table(name = "Usuarios")
+public class User {
 
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private String id;
 
     @Column(name = "Nome")
@@ -28,7 +26,11 @@ public class Musica {
     private String nome;
 
     @ManyToOne
-    @JoinColumn(name = "ArtistaId")
-    @NotNull
-    private Artista artista;
+    @JoinColumn(name = "PlaylistId")
+    private Playlist playlistId;
+
+    @ManyToOne
+    @JoinColumn(name = "TipoUsuario")
+    private UserType userTypeId;
+
 }

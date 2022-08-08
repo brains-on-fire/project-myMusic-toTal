@@ -1,10 +1,10 @@
 package com.ciandt.summit.bootcamp2022.service;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Artista;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
-import com.ciandt.summit.bootcamp2022.entity.TipoUsuario;
-import com.ciandt.summit.bootcamp2022.entity.Usuario;
+import com.ciandt.summit.bootcamp2022.entity.Artist;
+import com.ciandt.summit.bootcamp2022.entity.Music;
+import com.ciandt.summit.bootcamp2022.entity.UserType;
+import com.ciandt.summit.bootcamp2022.entity.User;
 import com.ciandt.summit.bootcamp2022.repository.UsuarioRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -34,13 +34,13 @@ public class UsuarioServiceTest {
     @Test
     public void DeveRetornarUsuarioPorId(){
 
-        TipoUsuario tipoUsuarioPremium = TipoUsuario.builder().id("2").descricao("premium").build();
+        UserType tipoUsuarioPremium = UserType.builder().id("2").descricao("premium").build();
 
-        Usuario usuario = Usuario.builder().id("2").tipoUsuarioId(tipoUsuarioPremium).nome("User Test").build();
+        User usuario = User.builder().id("2").userTypeId(tipoUsuarioPremium).nome("User Test").build();
 
         when(usuarioService.findUsersById("2")).thenReturn(Optional.of(usuario));
 
-        Optional<Usuario> result = usuarioService.findUsersById("2");
+        Optional<User> result = usuarioService.findUsersById("2");
 
         Assertions.assertTrue(result.isPresent());
 
@@ -50,13 +50,13 @@ public class UsuarioServiceTest {
     @Test
     public void DeveRetornarUsuarioNaoEncontrado(){
 
-        TipoUsuario tipoUsuarioPremium = TipoUsuario.builder().id("2").descricao("premium").build();
+        UserType tipoUsuarioPremium = UserType.builder().id("2").descricao("premium").build();
 
-        Usuario usuario = Usuario.builder().id("2").tipoUsuarioId(tipoUsuarioPremium).nome("User Test").build();
+        User usuario = User.builder().id("2").userTypeId(tipoUsuarioPremium).nome("User Test").build();
 
         when(usuarioService.findUsersById("2")).thenReturn(Optional.of(usuario));
 
-        Optional<Usuario> result = usuarioService.findUsersById("3");
+        Optional<User> result = usuarioService.findUsersById("3");
 
         Assertions.assertTrue(result.isEmpty());
 

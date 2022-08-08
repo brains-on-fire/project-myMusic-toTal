@@ -51,13 +51,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         boolean isValid = response.statusCode() == 201;
 
         if (isValid){
-            log.create(LogType.INFO, "Credenciais validadas com sucesso!");
+            log.create(LogType.INFO, "Successfully validated credentials.");
             return new PreAuthenticatedAuthenticationToken("AuthenticatedUser", name,
                     Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")));
         }
         else {
-             log.create(LogType.ERROR, "Credenciais invalidas");
-             System.out.println("Credenciais inválidas");
+             log.create(LogType.ERROR, "Invalid credentials.");
         }
 
         return null;

@@ -1,6 +1,6 @@
 package com.ciandt.summit.bootcamp2022.dto;
 
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,5 +15,5 @@ import java.util.List;
 @NoArgsConstructor
 public class PlaylistDTO {
     private String id;
-    private final List<Musica> musicas = new ArrayList<>();
+    private final List<Music> music = new ArrayList<>();
 }

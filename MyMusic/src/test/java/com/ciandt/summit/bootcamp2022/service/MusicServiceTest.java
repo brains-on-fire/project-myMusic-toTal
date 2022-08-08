@@ -1,8 +1,8 @@
 package com.ciandt.summit.bootcamp2022.service;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Artista;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Artist;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ActiveProfiles("test")
-public class MusicaServiceTest {
+public class MusicServiceTest {
 
     @InjectMocks
     private MusicaService musicaService;
@@ -35,14 +35,14 @@ public class MusicaServiceTest {
 
         String filtro = "THE";
 
-        Artista artista = Artista.builder().id("1").nome("Teste Artista").build();
-        Musica musica = Musica.builder().id("1").nome("Teste Musica").artista(artista).build();
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
+        Artist artist = Artist.builder().id("1").nome("Teste Artista").build();
+        Music music = Music.builder().id("1").nome("Teste Musica").artist(artist).build();
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
 
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
 
-        when(musicaRepository.findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(filtro, filtro)).thenReturn(listaMusica);
+        when(musicaRepository.findByNomeContainsIgnoreCaseOrArtist_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtist_NomeAscNomeAsc(filtro, filtro)).thenReturn(listaMusic);
 
         Optional<MusicaDTO> result = musicaService.findByNameArtistOrMusic(filtro);
 
@@ -55,14 +55,14 @@ public class MusicaServiceTest {
 
         String filtro = "ABCDEF";
 
-        Artista artista = Artista.builder().id("1").nome("Teste Artista").build();
-        Musica musica = Musica.builder().id("1").nome("Teste Musica").artista(artista).build();
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
+        Artist artist = Artist.builder().id("1").nome("Teste Artista").build();
+        Music music = Music.builder().id("1").nome("Teste Musica").artist(artist).build();
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
 
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
 
-        when(musicaRepository.findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(filtro, filtro)).thenReturn(new ArrayList<>());
+        when(musicaRepository.findByNomeContainsIgnoreCaseOrArtist_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtist_NomeAscNomeAsc(filtro, filtro)).thenReturn(new ArrayList<>());
 
         Optional<MusicaDTO> result = musicaService.findByNameArtistOrMusic(filtro);
 

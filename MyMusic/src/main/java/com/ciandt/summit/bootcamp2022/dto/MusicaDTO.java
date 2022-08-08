@@ -1,6 +1,6 @@
 package com.ciandt.summit.bootcamp2022.dto;
 
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import com.ciandt.summit.bootcamp2022.exceptions.MusicaNaoEncontradaException;
 import lombok.*;
 
@@ -16,12 +16,12 @@ import java.util.List;
 public class MusicaDTO {
 
     @NotNull
-    private List<Musica> data = new ArrayList<>();
+    private List<Music> data = new ArrayList<>();
 
-    public void addMusica(Musica musica) {
-        if (musica == null)
+    public void addMusica(Music music) {
+        if (music == null)
             throw new MusicaNaoEncontradaException();
 
-        this.data.add(musica);
+        this.data.add(music);
     }
 }

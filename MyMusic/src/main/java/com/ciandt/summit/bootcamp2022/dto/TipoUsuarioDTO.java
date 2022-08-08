@@ -1,7 +1,6 @@
 package com.ciandt.summit.bootcamp2022.dto;
 
-import com.ciandt.summit.bootcamp2022.entity.TipoUsuario;
-import com.ciandt.summit.bootcamp2022.entity.Usuario;
+import com.ciandt.summit.bootcamp2022.entity.UserType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,5 +16,5 @@ import java.util.List;
 @NoArgsConstructor
 public class TipoUsuarioDTO {
     @NotNull
-    private List<TipoUsuario> data = new ArrayList<>();
+    private List<UserType> data = new ArrayList<>();
 }

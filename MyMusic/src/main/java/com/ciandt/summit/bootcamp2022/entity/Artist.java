@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -14,15 +13,17 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @Entity
-@Table(name = "TipoUsuario")
-public class TipoUsuario {
+@Table(name = "Artistas")
+public class Artist {
 
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
     private String id;
 
-    @Column(name = "Descricao")
-    private String descricao;
+    @Column(name = "Nome")
+    @NotNull
+    private String nome;
 
 }
