@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                mvn: 'Test'
+                echo 'Building..'
             }
         }
     }
