@@ -1,8 +1,8 @@
 package com.ciandt.summit.bootcamp2022.controller;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Artista;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Artist;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import com.ciandt.summit.bootcamp2022.service.MusicaService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +30,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @ActiveProfiles("test")
 @WebAppConfiguration
 @AutoConfigureMockMvc(addFilters = false)
-public class MusicaControllerTest {
+public class MusicControllerTest {
     @MockBean
     private MusicaService musicaService;
 
@@ -40,9 +40,9 @@ public class MusicaControllerTest {
     @Test
     @DisplayName("Busca >= 3 caracteres deve retornar OK")
     public void deveRetornarOkAoPesquisarComMaisDeDoisCaracteres() throws Exception {
-        List<Musica> musicas = new ArrayList<>();
-        musicas.add(new Musica("123", "Musica Teste", new Artista("1", "Artista Teste")));
-        MusicaDTO musicaDTO = new MusicaDTO(musicas);
+        List<Music> music = new ArrayList<>();
+        music.add(new Music("123", "Musica Teste", new Artist("1", "Artista Teste")));
+        MusicaDTO musicaDTO = new MusicaDTO(music);
 
         Mockito.when(musicaService.findByNameArtistOrMusic("Teste")).thenReturn(Optional.of(musicaDTO));
 
@@ -77,9 +77,9 @@ public class MusicaControllerTest {
     @Test
     @DisplayName("Busca >= 3 caracteres INSENSITIVOS deve retornar NO CONTENT")
     public void deveRetornarNoContentAoPesquisarComMaisDeDoisCaracteresInsensitivos() throws Exception {
-        List<Musica> musicas = new ArrayList<>();
-        musicas.add(new Musica("123", "Musica Teste", new Artista("1", "Artista Teste")));
-        MusicaDTO musicaDTO = new MusicaDTO(musicas);
+        List<Music> music = new ArrayList<>();
+        music.add(new Music("123", "Musica Teste", new Artist("1", "Artista Teste")));
+        MusicaDTO musicaDTO = new MusicaDTO(music);
 
         Mockito.when(musicaService.findByNameArtistOrMusic("Teste")).thenReturn(Optional.of(musicaDTO));
 

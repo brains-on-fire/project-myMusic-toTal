@@ -11,37 +11,37 @@ public class ExceptionControllerHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(MusicaNaoEncontradaException.class)
     public ResponseEntity<Object> handleMusicaNaoEncontradaException(MusicaNaoEncontradaException err) {
-        return ResponseHandler.badRequest("Música não encontrada.");
+        return ResponseHandler.badRequest("Music not found.");
     }
 
     @ExceptionHandler(PlaylistNaoEncontrada.class)
     public ResponseEntity<Object> handlePlaylistNaoEncontrada(PlaylistNaoEncontrada err) {
-        return ResponseHandler.badRequest("Playlist não encontrada.");
+        return ResponseHandler.badRequest("Playlist not found.");
     }
 
     @ExceptionHandler(MusicaJaCadastradaNaPlaylistException.class)
     public ResponseEntity<Object> handleMusicaJaCadastradaNaPlaylistException(MusicaJaCadastradaNaPlaylistException err) {
-        return ResponseHandler.badRequest("Música já cadastrada na Playlist.");
+        return ResponseHandler.badRequest("Music already registered in the Playlist.");
     }
 
     @ExceptionHandler(PayloadInvalidoException.class)
     public ResponseEntity<Object> handlePayloadInvalidoException(PayloadInvalidoException err) {
-        return ResponseHandler.badRequest("Payload Inválido.");
+        return ResponseHandler.badRequest("Payload invalid.");
     }
 
     @ExceptionHandler(MusicaNaoCadastradaNaPlaylistException.class)
     public ResponseEntity<Object> handleMusicaNaoCadastradaNaPlaylistException(MusicaNaoCadastradaNaPlaylistException err){
-        return ResponseHandler.badRequest("Música não cadastrada na Playlist");
+        return ResponseHandler.badRequest("Music not registered in Playlist.");
     }
 
     @ExceptionHandler(UsuarioNaoEncontrado.class)
     public ResponseEntity<Object> handleUsuarioNaoEncontradoException(UsuarioNaoEncontrado err){
-        return ResponseHandler.badRequest("Usuario não encontrado");
+        return ResponseHandler.badRequest("User not found.");
     }
 
     @ExceptionHandler(QuantMusicaExcedidaException.class)
     public ResponseEntity<Object> handleUsuarioNaoEncontradoException(QuantMusicaExcedidaException err){
-        return ResponseHandler.badRequest("Você atingiu o número máximo de músicas em sua playlist. Para adicionar mais músicas contrate o plano Premium.");
+        return ResponseHandler.badRequest("You have reached the maximum number of songs in your playlist. To add more songs, purchase the Premium plan.");
     }
 
 }

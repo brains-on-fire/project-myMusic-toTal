@@ -24,19 +24,19 @@ public class Playlist {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "PlaylistMusicas", joinColumns = {@JoinColumn(name = "PlaylistId")}, inverseJoinColumns = {@JoinColumn(name = "MusicaId")})
-    private List<Musica> musicas = new ArrayList<>();
+    private List<Music> music = new ArrayList<>();
 
-    public void addMusica(Musica musica) {
-        if (musica != null)
-            this.musicas.add(musica);
+    public void addMusica(Music music) {
+        if (music != null)
+            this.music.add(music);
     }
 
-    public void removeMusica(Musica musica){
-        this.musicas.remove(musica);
+    public void removeMusica(Music music){
+        this.music.remove(music);
     }
 
     public Integer countMusica(Playlist playlist){
-        return Math.toIntExact(playlist.musicas.stream().count());
+        return Math.toIntExact(playlist.music.stream().count());
     }
 
 }

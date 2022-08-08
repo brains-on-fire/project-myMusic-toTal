@@ -1,10 +1,9 @@
 package com.ciandt.summit.bootcamp2022.service;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import com.ciandt.summit.bootcamp2022.entity.Playlist;
-import com.ciandt.summit.bootcamp2022.entity.TipoUsuario;
-import com.ciandt.summit.bootcamp2022.entity.Usuario;
+import com.ciandt.summit.bootcamp2022.entity.User;
 import com.ciandt.summit.bootcamp2022.exceptions.*;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import com.ciandt.summit.bootcamp2022.repository.PlaylistRepository;
@@ -32,29 +31,29 @@ public class PlaylistService {
         if (!isPayloadValid(musicaDTO))
             throw new PayloadInvalidoException();
 
-        Musica novaMusica = musicaRepository.findById(musicaDTO.getData().get(0).getId()).orElseThrow(() -> new MusicaNaoEncontradaException());
+        Music novaMusic = musicaRepository.findById(musicaDTO.getData().get(0).getId()).orElseThrow(() -> new MusicaNaoEncontradaException());
         Playlist playlist = playlistRepository.findById(playlistId).orElseThrow(() -> new PlaylistNaoEncontrada());
-        Usuario usuario = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontrado());
+        User user = usuarioRepository.findById(usuarioId).orElseThrow(() -> new UsuarioNaoEncontrado());
 
         Integer countMusicas = playlist.countMusica(playlist);
 
-        if ((playlist != null) && (novaMusica != null) && (usuario != null)){
+        if ((playlist != null) && (novaMusic != null) && (user != null)){
 
-            if (playlist.getMusicas() != null && playlist.getMusicas().contains(novaMusica))
+            if (playlist.getMusic() != null && playlist.getMusic().contains(novaMusic))
                 throw new MusicaJaCadastradaNaPlaylistException();
 
-            if (usuario.getTipoUsuarioId().getDescricao().equals("comum")  && countMusicas > 5)
+            if (user.getUserTypeId().getDescricao().equals("comum")  && countMusicas > 5)
                 throw new QuantMusicaExcedidaException();
 
 
-            playlist.addMusica(novaMusica);
+            playlist.addMusica(novaMusic);
             playlistRepository.save(playlist);
 
 
-            List<Musica> musicaAdicionada = new ArrayList<>();
-            musicaAdicionada.add(novaMusica);
+            List<Music> musicAdicionada = new ArrayList<>();
+            musicAdicionada.add(novaMusic);
 
-            MusicaDTO musicaDTOAdicionada = new MusicaDTO(musicaAdicionada);
+            MusicaDTO musicaDTOAdicionada = new MusicaDTO(musicAdicionada);
 
             return Optional.of(musicaDTOAdicionada);
         }
@@ -64,23 +63,23 @@ public class PlaylistService {
 
     public void removeMusicaFromPlaylist(String playlistid, String musicaId){
         Playlist playlist = playlistRepository.findById(playlistid).orElseThrow(() -> new PlaylistNaoEncontrada());
-        Musica musica = musicaRepository.findById(musicaId).orElseThrow(() -> new MusicaNaoEncontradaException());
+        Music music = musicaRepository.findById(musicaId).orElseThrow(() -> new MusicaNaoEncontradaException());
 
-        if (!playlist.getMusicas().contains(musica))
+        if (!playlist.getMusic().contains(music))
             throw new MusicaNaoCadastradaNaPlaylistException();
 
-        playlist.removeMusica(musica);
+        playlist.removeMusica(music);
         playlistRepository.save(playlist);
     }
 
-    public Optional<List<Musica>> findPlaylistMusicasByPlaylistId(String id) {
+    public Optional<List<Music>> findPlaylistMusicasByPlaylistId(String id) {
 
         Optional<Playlist> playlist = playlistRepository.findById(id);
 
         if (playlist.isEmpty())
             throw new PlaylistNaoEncontrada();
 
-        return Optional.of(playlist.get().getMusicas());
+        return Optional.of(playlist.get().getMusic());
     }
 
     public Optional<List<Playlist>> findAll() {
@@ -91,13 +90,13 @@ public class PlaylistService {
         if (musicaDTO == null || musicaDTO.getData() == null || musicaDTO.getData().size() == 0)
             return false;
 
-        Musica musicaCompare = musicaDTO.getData().get(0);
+        Music musicCompare = musicaDTO.getData().get(0);
 
-        if (musicaCompare.getId() == null ||
-            musicaCompare.getNome() == null ||
-            musicaCompare.getArtista() == null ||
-            musicaCompare.getArtista().getId() == null ||
-            musicaCompare.getArtista().getNome() == null)
+        if (musicCompare.getId() == null ||
+            musicCompare.getNome() == null ||
+            musicCompare.getArtist() == null ||
+            musicCompare.getArtist().getId() == null ||
+            musicCompare.getArtist().getNome() == null)
             return false;
 
         return true;

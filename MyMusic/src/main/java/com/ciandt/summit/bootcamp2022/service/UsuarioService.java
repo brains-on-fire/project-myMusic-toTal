@@ -1,9 +1,8 @@
 package com.ciandt.summit.bootcamp2022.service;
 
-import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
 import com.ciandt.summit.bootcamp2022.dto.UsuarioDTO;
-import com.ciandt.summit.bootcamp2022.entity.TipoUsuario;
-import com.ciandt.summit.bootcamp2022.entity.Usuario;
+import com.ciandt.summit.bootcamp2022.entity.UserType;
+import com.ciandt.summit.bootcamp2022.entity.User;
 import com.ciandt.summit.bootcamp2022.exceptions.UsuarioNaoEncontrado;
 import com.ciandt.summit.bootcamp2022.repository.TipoUsuarioRepository;
 import com.ciandt.summit.bootcamp2022.repository.UsuarioRepository;
@@ -21,15 +20,15 @@ public class UsuarioService {
     @Autowired
     private TipoUsuarioRepository tipoUsuarioRepository;
 
-    public Optional<List<Usuario>> findAll() {
-        Optional<List<Usuario>> usuario = Optional.of(usuarioRepository.findAll());
+    public Optional<List<User>> findAll() {
+        Optional<List<User>> usuario = Optional.of(usuarioRepository.findAll());
         return usuario;
     }
 
 
-    public Optional<Usuario> findUsersById(String usuarioId) {
+    public Optional<User> findUsersById(String usuarioId) {
 
-        Optional<Usuario> usuario = usuarioRepository.findById(usuarioId);
+        Optional<User> usuario = usuarioRepository.findById(usuarioId);
 
         if (usuario.isEmpty())
             throw new UsuarioNaoEncontrado();
@@ -37,12 +36,12 @@ public class UsuarioService {
         return usuario;
     }
 
-        public Optional<Usuario> migratePlanUser(String usuarioId, UsuarioDTO usuarioDTO) {
+        public Optional<User> migratePlanUser(String usuarioId, UsuarioDTO usuarioDTO) {
 
-            Optional<TipoUsuario> tipoUsuarioPremium = tipoUsuarioRepository.findById("2");
-            Optional<TipoUsuario> tipoUsuarioComum = tipoUsuarioRepository.findById("1");
+            Optional<UserType> tipoUsuarioPremium = tipoUsuarioRepository.findById("2");
+            Optional<UserType> tipoUsuarioComum = tipoUsuarioRepository.findById("1");
 
-            Optional<Usuario> usuarioEncontrado = usuarioRepository.findById(usuarioId);
+            Optional<User> usuarioEncontrado = usuarioRepository.findById(usuarioId);
 
             String usuarioEdit = String.valueOf(usuarioRepository.findById(usuarioId));
 

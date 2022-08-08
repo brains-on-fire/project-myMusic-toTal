@@ -1,7 +1,7 @@
 package com.ciandt.summit.bootcamp2022.service;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -18,7 +18,7 @@ public class MusicaService {
     @Cacheable(value = "ten-minutes-cache", key = "'QueryCache'+#filtro")
     public Optional<MusicaDTO> findByNameArtistOrMusic(String filtro) {
 
-        List<Musica> queryResult = musicaRepository.findByNomeContainsIgnoreCaseOrArtista_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtista_NomeAscNomeAsc(filtro, filtro);
+        List<Music> queryResult = musicaRepository.findByNomeContainsIgnoreCaseOrArtist_NomeContainsIgnoreCaseAllIgnoreCaseOrderByArtist_NomeAscNomeAsc(filtro, filtro);
 
         if (queryResult.isEmpty()) {
             return Optional.empty();

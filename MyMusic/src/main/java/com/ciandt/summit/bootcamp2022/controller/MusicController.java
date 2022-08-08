@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/musicas")
-public class MusicaController {
+@RequestMapping("/music")
+public class MusicController {
     @Autowired
     MusicaService musicaService;
 
@@ -30,17 +30,17 @@ public class MusicaController {
     public ResponseEntity<Object> getByNameOrArtist(@RequestParam(value = "filtro", required = false) String filtro) {
 
         if (filtro == null)
-            return ResponseHandler.badRequest("O parâmetro 'filtro' é obrigatório.");
+            return ResponseHandler.badRequest("The 'filter' parameter is required.");
 
         if (filtro.length() < 3)
-            return ResponseHandler.badRequest("Filtro informado inválido (menor que 3 caracteres): " + filtro);
+            return ResponseHandler.badRequest("Invalid filter entered (less than 3 characters): " + filtro);
 
         Optional<MusicaDTO> musicas = musicaService.findByNameArtistOrMusic(filtro);
 
         if (musicas.isEmpty())
-            return ResponseHandler.noContent("Música não encontrada com o filtro: " + filtro);
+            return ResponseHandler.noContent("Music not found with filter: " + filtro);
 
-        return ResponseHandler.ok(musicas.get(), musicas.stream().count() + " músicas encontradas com o filtro: " + filtro);
+        return ResponseHandler.ok(musicas.get(), musicas.stream().count() + "search result with filter: " + filtro);
 
 
 

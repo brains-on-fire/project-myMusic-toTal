@@ -1,8 +1,8 @@
 package com.ciandt.summit.bootcamp2022.controller;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.entity.Artista;
-import com.ciandt.summit.bootcamp2022.entity.Musica;
+import com.ciandt.summit.bootcamp2022.entity.Artist;
+import com.ciandt.summit.bootcamp2022.entity.Music;
 import com.ciandt.summit.bootcamp2022.exceptions.PayloadInvalidoException;
 import com.ciandt.summit.bootcamp2022.repository.MusicaRepository;
 import com.ciandt.summit.bootcamp2022.repository.PlaylistRepository;
@@ -53,19 +53,19 @@ public class PlaylistControllerTest {
     @DisplayName("Deve adicionar música válida e retornar CREATED")
     public void deveAdicionarMusicaERetornarCreated() throws Exception {
 
-        Artista artistaAdicionar = Artista.builder().id("1").nome("Artista Teste").build();
-        Musica musicaAdicionar = Musica.builder().id("1").nome("Musica Teste").artista(artistaAdicionar).build();
+        Artist artistAdicionar = Artist.builder().id("1").nome("Artista Teste").build();
+        Music musicAdicionar = Music.builder().id("1").nome("Musica Teste").artist(artistAdicionar).build();
 
-        List<Musica> listaMusicaAdicionar = new ArrayList<>();
-        listaMusicaAdicionar.add(musicaAdicionar);
+        List<Music> listaMusicAdicionar = new ArrayList<>();
+        listaMusicAdicionar.add(musicAdicionar);
 
-        MusicaDTO musicaDTOAdicionar = new MusicaDTO(listaMusicaAdicionar);
+        MusicaDTO musicaDTOAdicionar = new MusicaDTO(listaMusicAdicionar);
 
         String json = new ObjectMapper().writeValueAsString(musicaDTOAdicionar);
 
         MusicaDTO musicaDTOAdicionada = MusicaDTO.builder().data(musicaDTOAdicionar.getData()).build();
 
-        when(playlistService.addMusicaToPlaylist("1", musicaDTOAdicionar)).thenReturn(Optional.of(musicaDTOAdicionada));
+        when(playlistService.addMusicaToPlaylist("0c2a04a5-d8d2-42a2-a90f-3d6e8f912b88","ed7f6acb-1aad-42c9-8c7b-5a49540fcbc4", musicaDTOAdicionar)).thenReturn(Optional.of(musicaDTOAdicionada));
 
         this.mockMvc.perform(
                         post("/playlists/1/musicas")
@@ -95,7 +95,7 @@ public class PlaylistControllerTest {
 
         String json = new ObjectMapper().writeValueAsString(musicaDTO);
 
-        when(playlistService.addMusicaToPlaylist("1", musicaDTO)).thenThrow(new PayloadInvalidoException());
+        when(playlistService.addMusicaToPlaylist("0c2a04a5-d8d2-42a2-a90f-3d6e8f912b88", "ed7f6acb-1aad-42c9-8c7b-5a49540fcbc4", musicaDTO)).thenThrow(new PayloadInvalidoException());
 
         this.mockMvc.perform(
                         post("/playlists/1/musicas")

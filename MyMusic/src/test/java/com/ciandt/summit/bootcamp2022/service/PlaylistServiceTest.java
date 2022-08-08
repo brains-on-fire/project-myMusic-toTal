@@ -1,7 +1,6 @@
 package com.ciandt.summit.bootcamp2022.service;
 
 import com.ciandt.summit.bootcamp2022.dto.MusicaDTO;
-import com.ciandt.summit.bootcamp2022.dto.UsuarioDTO;
 import com.ciandt.summit.bootcamp2022.entity.*;
 import com.ciandt.summit.bootcamp2022.exceptions.MusicaJaCadastradaNaPlaylistException;
 import com.ciandt.summit.bootcamp2022.exceptions.MusicaNaoEncontradaException;
@@ -47,24 +46,24 @@ public class PlaylistServiceTest {
     @Test
     @DisplayName("Deve adicionar uma música na playlist")
     public void deveAdicionarUmaMusicaNaPlaylist() {
-        Artista artista = Artista.builder().id("1").nome("Artista Teste").build();
-        Musica musica = Musica.builder().id("1").nome("Musica Teste").artista(artista).build();
-        Playlist playlist = Playlist.builder().id("1").musicas(new ArrayList<>()).build();
+        Artist artist = Artist.builder().id("1").nome("Artista Teste").build();
+        Music music = Music.builder().id("1").nome("Musica Teste").artist(artist).build();
+        Playlist playlist = Playlist.builder().id("1").music(new ArrayList<>()).build();
 
-        Usuario usuario = new Usuario();
-        TipoUsuario tipoUsuario = TipoUsuario.builder().id("2").descricao("premium").build();
-        usuario.setTipoUsuarioId(tipoUsuario);
-        usuario.setPlaylistId(playlist);
-        usuario.setId("1");
-        usuario.setNome("User Test");
+        User user = new User();
+        UserType userType = UserType.builder().id("2").descricao("premium").build();
+        user.setUserTypeId(userType);
+        user.setPlaylistId(playlist);
+        user.setId("1");
+        user.setNome("User Test");
 
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
 
-        when(usuarioRepository.findById("1")).thenReturn(Optional.of(usuario));
+        when(usuarioRepository.findById("1")).thenReturn(Optional.of(user));
 
-        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(musica));
+        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(music));
 
         when(playlistRepository.findById("1")).thenReturn(Optional.of(playlist));
 
@@ -74,8 +73,8 @@ public class PlaylistServiceTest {
 
         Assertions.assertEquals(playlistSalva.get().getData().get(0).getId(), "1");
         Assertions.assertEquals(playlistSalva.get().getData().get(0).getNome(), "Musica Teste");
-        Assertions.assertEquals(playlistSalva.get().getData().get(0).getArtista().getId(), "1");
-        Assertions.assertEquals(playlistSalva.get().getData().get(0).getArtista().getNome(), "Artista Teste");
+        Assertions.assertEquals(playlistSalva.get().getData().get(0).getArtist().getId(), "1");
+        Assertions.assertEquals(playlistSalva.get().getData().get(0).getArtist().getNome(), "Artista Teste");
 
     }
 
@@ -83,17 +82,17 @@ public class PlaylistServiceTest {
     @Test
     @DisplayName("Deve retornar erro ao adicionar uma música com Payload inválido")
     public void deveRetornarExcecaoAoAdicionarMusicaComPayloadInvalido() {
-        Artista artista = Artista.builder().id("1").build();
-        Musica musica = Musica.builder().id("1").nome("Musica Teste").artista(artista).build();
+        Artist artist = Artist.builder().id("1").build();
+        Music music = Music.builder().id("1").nome("Musica Teste").artist(artist).build();
 
-        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(musica));
+        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(music));
 
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
 
 
-        Playlist playlist = Playlist.builder().id("1").musicas(new ArrayList<>()).build();
+        Playlist playlist = Playlist.builder().id("1").music(new ArrayList<>()).build();
         when(playlistRepository.findById("1")).thenReturn(Optional.of(playlist));
 
         when(playlistRepository.save(playlist)).thenThrow(new PayloadInvalidoException());
@@ -104,17 +103,17 @@ public class PlaylistServiceTest {
     @Test
     @DisplayName("Deve retornar erro ao adicionar uma música não existente")
     public void deveRetornarExcecaoAoAdicionarMusicaNaoCadastrada() {
-        Artista artista = Artista.builder().id("1").nome("Artista Teste").build();
-        Musica musica = Musica.builder().id("1").nome("Musica Teste").artista(artista).build();
+        Artist artist = Artist.builder().id("1").nome("Artista Teste").build();
+        Music music = Music.builder().id("1").nome("Musica Teste").artist(artist).build();
 
         when(musicaRepository.findById(Mockito.anyString())).thenThrow(new MusicaNaoEncontradaException());
 
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
 
 
-        Playlist playlist = Playlist.builder().id("1").musicas(new ArrayList<>()).build();
+        Playlist playlist = Playlist.builder().id("1").music(new ArrayList<>()).build();
         when(playlistRepository.findById("1")).thenReturn(Optional.of(playlist));
 
         when(playlistRepository.save(playlist)).thenThrow(new PayloadInvalidoException());
@@ -126,17 +125,17 @@ public class PlaylistServiceTest {
     @Test
     @DisplayName("Deve retornar erro ao adicionar uma música a uma playlist não existente")
     public void deveRetornarExcecaoAoAdicionarMusicaAUmaPlaylistNaoExistente() {
-        Artista artista = Artista.builder().id("1").nome("Artista Teste").build();
-        Musica musica = Musica.builder().id("1").nome("Musica Teste").artista(artista).build();
+        Artist artist = Artist.builder().id("1").nome("Artista Teste").build();
+        Music music = Music.builder().id("1").nome("Musica Teste").artist(artist).build();
 
-        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(musica));
+        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(music));
 
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
 
 
-        Playlist playlist = Playlist.builder().id("1").musicas(new ArrayList<>()).build();
+        Playlist playlist = Playlist.builder().id("1").music(new ArrayList<>()).build();
         when(playlistRepository.findById("1")).thenThrow(new PlaylistNaoEncontrada());
 
         when(playlistRepository.save(playlist)).thenThrow(new PlaylistNaoEncontrada());
@@ -149,24 +148,24 @@ public class PlaylistServiceTest {
     @DisplayName("Deve retornar erro ao adicionar uma música já existente")
     public void deveRetornarExcecaoAoAdicionarMusicaJaExistente() {
 
-        Artista artista = Artista.builder().id("1").nome("Artista Teste").build();
-        Musica musica = Musica.builder().id("1").nome("Musica Teste").artista(artista).build();
+        Artist artist = Artist.builder().id("1").nome("Artista Teste").build();
+        Music music = Music.builder().id("1").nome("Musica Teste").artist(artist).build();
 
-        List<Musica> listaMusica = new ArrayList<>();
-        listaMusica.add(musica);
+        List<Music> listaMusic = new ArrayList<>();
+        listaMusic.add(music);
 
-        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusica).build();
-        Playlist playlist = Playlist.builder().id("1").musicas(listaMusica).build();
-        TipoUsuario tipoUsuarioPremium = TipoUsuario.builder().id("2").descricao("premium").build();
-        Usuario usuario = new Usuario();
-        usuario.setTipoUsuarioId(tipoUsuarioPremium);
-        usuario.setPlaylistId(playlist);
-        usuario.setId("1");
-        usuario.setNome("User Test");
+        MusicaDTO musicaDTO = MusicaDTO.builder().data(listaMusic).build();
+        Playlist playlist = Playlist.builder().id("1").music(listaMusic).build();
+        UserType userTypePremium = UserType.builder().id("2").descricao("premium").build();
+        User user = new User();
+        user.setUserTypeId(userTypePremium);
+        user.setPlaylistId(playlist);
+        user.setId("1");
+        user.setNome("User Test");
 
 
-        when(usuarioRepository.findById("1")).thenReturn(Optional.of(usuario));
-        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(musica));
+        when(usuarioRepository.findById("1")).thenReturn(Optional.of(user));
+        when(musicaRepository.findById(Mockito.anyString())).thenReturn(Optional.of(music));
         when(playlistRepository.findById("1")).thenReturn(Optional.of(playlist));
         when(playlistRepository.save(playlist)).thenThrow(new MusicaJaCadastradaNaPlaylistException());
 
